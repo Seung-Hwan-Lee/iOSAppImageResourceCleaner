@@ -1,0 +1,480 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E92E4AA519204C2F002363E1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92E4AA419204C2F002363E1 /* Cocoa.framework */; };
+		E92E4AAF19204C2F002363E1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E92E4AAD19204C2F002363E1 /* InfoPlist.strings */; };
+		E92E4AB119204C2F002363E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E92E4AB019204C2F002363E1 /* main.m */; };
+		E92E4AB519204C2F002363E1 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E92E4AB319204C2F002363E1 /* Credits.rtf */; };
+		E92E4AB819204C2F002363E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E92E4AB719204C2F002363E1 /* AppDelegate.m */; };
+		E92E4ABB19204C2F002363E1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E92E4AB919204C2F002363E1 /* MainMenu.xib */; };
+		E92E4ABD19204C2F002363E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E92E4ABC19204C2F002363E1 /* Images.xcassets */; };
+		E92E4AC419204C2F002363E1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92E4AC319204C2F002363E1 /* XCTest.framework */; };
+		E92E4AC519204C2F002363E1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92E4AA419204C2F002363E1 /* Cocoa.framework */; };
+		E92E4ACD19204C2F002363E1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E92E4ACB19204C2F002363E1 /* InfoPlist.strings */; };
+		E92E4ACF19204C2F002363E1 /* iOSAppImageResourceCleanerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E92E4ACE19204C2F002363E1 /* iOSAppImageResourceCleanerTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E92E4AC619204C2F002363E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E92E4A9919204C2F002363E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E92E4AA019204C2F002363E1;
+			remoteInfo = iOSAppImageResourceCleaner;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E92E4AA119204C2F002363E1 /* iOSAppImageResourceCleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSAppImageResourceCleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E92E4AA419204C2F002363E1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		E92E4AA719204C2F002363E1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		E92E4AA819204C2F002363E1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E92E4AA919204C2F002363E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E92E4AAC19204C2F002363E1 /* iOSAppImageResourceCleaner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOSAppImageResourceCleaner-Info.plist"; sourceTree = "<group>"; };
+		E92E4AAE19204C2F002363E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E92E4AB019204C2F002363E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E92E4AB219204C2F002363E1 /* iOSAppImageResourceCleaner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSAppImageResourceCleaner-Prefix.pch"; sourceTree = "<group>"; };
+		E92E4AB419204C2F002363E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		E92E4AB619204C2F002363E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E92E4AB719204C2F002363E1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E92E4ABA19204C2F002363E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E92E4ABC19204C2F002363E1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E92E4AC219204C2F002363E1 /* iOSAppImageResourceCleanerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSAppImageResourceCleanerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E92E4AC319204C2F002363E1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		E92E4ACA19204C2F002363E1 /* iOSAppImageResourceCleanerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOSAppImageResourceCleanerTests-Info.plist"; sourceTree = "<group>"; };
+		E92E4ACC19204C2F002363E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E92E4ACE19204C2F002363E1 /* iOSAppImageResourceCleanerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSAppImageResourceCleanerTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E92E4A9E19204C2F002363E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E92E4AA519204C2F002363E1 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E92E4ABF19204C2F002363E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E92E4AC519204C2F002363E1 /* Cocoa.framework in Frameworks */,
+				E92E4AC419204C2F002363E1 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E92E4A9819204C2F002363E1 = {
+			isa = PBXGroup;
+			children = (
+				E92E4AAA19204C2F002363E1 /* iOSAppImageResourceCleaner */,
+				E92E4AC819204C2F002363E1 /* iOSAppImageResourceCleanerTests */,
+				E92E4AA319204C2F002363E1 /* Frameworks */,
+				E92E4AA219204C2F002363E1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E92E4AA219204C2F002363E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E92E4AA119204C2F002363E1 /* iOSAppImageResourceCleaner.app */,
+				E92E4AC219204C2F002363E1 /* iOSAppImageResourceCleanerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E92E4AA319204C2F002363E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E92E4AA419204C2F002363E1 /* Cocoa.framework */,
+				E92E4AC319204C2F002363E1 /* XCTest.framework */,
+				E92E4AA619204C2F002363E1 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E92E4AA619204C2F002363E1 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E92E4AA719204C2F002363E1 /* AppKit.framework */,
+				E92E4AA819204C2F002363E1 /* CoreData.framework */,
+				E92E4AA919204C2F002363E1 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		E92E4AAA19204C2F002363E1 /* iOSAppImageResourceCleaner */ = {
+			isa = PBXGroup;
+			children = (
+				E92E4AB619204C2F002363E1 /* AppDelegate.h */,
+				E92E4AB719204C2F002363E1 /* AppDelegate.m */,
+				E92E4AB919204C2F002363E1 /* MainMenu.xib */,
+				E92E4ABC19204C2F002363E1 /* Images.xcassets */,
+				E92E4AAB19204C2F002363E1 /* Supporting Files */,
+			);
+			path = iOSAppImageResourceCleaner;
+			sourceTree = "<group>";
+		};
+		E92E4AAB19204C2F002363E1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E92E4AAC19204C2F002363E1 /* iOSAppImageResourceCleaner-Info.plist */,
+				E92E4AAD19204C2F002363E1 /* InfoPlist.strings */,
+				E92E4AB019204C2F002363E1 /* main.m */,
+				E92E4AB219204C2F002363E1 /* iOSAppImageResourceCleaner-Prefix.pch */,
+				E92E4AB319204C2F002363E1 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E92E4AC819204C2F002363E1 /* iOSAppImageResourceCleanerTests */ = {
+			isa = PBXGroup;
+			children = (
+				E92E4ACE19204C2F002363E1 /* iOSAppImageResourceCleanerTests.m */,
+				E92E4AC919204C2F002363E1 /* Supporting Files */,
+			);
+			path = iOSAppImageResourceCleanerTests;
+			sourceTree = "<group>";
+		};
+		E92E4AC919204C2F002363E1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E92E4ACA19204C2F002363E1 /* iOSAppImageResourceCleanerTests-Info.plist */,
+				E92E4ACB19204C2F002363E1 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E92E4AA019204C2F002363E1 /* iOSAppImageResourceCleaner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E92E4AD219204C2F002363E1 /* Build configuration list for PBXNativeTarget "iOSAppImageResourceCleaner" */;
+			buildPhases = (
+				E92E4A9D19204C2F002363E1 /* Sources */,
+				E92E4A9E19204C2F002363E1 /* Frameworks */,
+				E92E4A9F19204C2F002363E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOSAppImageResourceCleaner;
+			productName = iOSAppImageResourceCleaner;
+			productReference = E92E4AA119204C2F002363E1 /* iOSAppImageResourceCleaner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E92E4AC119204C2F002363E1 /* iOSAppImageResourceCleanerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E92E4AD519204C2F002363E1 /* Build configuration list for PBXNativeTarget "iOSAppImageResourceCleanerTests" */;
+			buildPhases = (
+				E92E4ABE19204C2F002363E1 /* Sources */,
+				E92E4ABF19204C2F002363E1 /* Frameworks */,
+				E92E4AC019204C2F002363E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E92E4AC719204C2F002363E1 /* PBXTargetDependency */,
+			);
+			name = iOSAppImageResourceCleanerTests;
+			productName = iOSAppImageResourceCleanerTests;
+			productReference = E92E4AC219204C2F002363E1 /* iOSAppImageResourceCleanerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E92E4A9919204C2F002363E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				TargetAttributes = {
+					E92E4AC119204C2F002363E1 = {
+						TestTargetID = E92E4AA019204C2F002363E1;
+					};
+				};
+			};
+			buildConfigurationList = E92E4A9C19204C2F002363E1 /* Build configuration list for PBXProject "iOSAppImageResourceCleaner" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E92E4A9819204C2F002363E1;
+			productRefGroup = E92E4AA219204C2F002363E1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E92E4AA019204C2F002363E1 /* iOSAppImageResourceCleaner */,
+				E92E4AC119204C2F002363E1 /* iOSAppImageResourceCleanerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E92E4A9F19204C2F002363E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E92E4AAF19204C2F002363E1 /* InfoPlist.strings in Resources */,
+				E92E4ABD19204C2F002363E1 /* Images.xcassets in Resources */,
+				E92E4AB519204C2F002363E1 /* Credits.rtf in Resources */,
+				E92E4ABB19204C2F002363E1 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E92E4AC019204C2F002363E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E92E4ACD19204C2F002363E1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E92E4A9D19204C2F002363E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E92E4AB819204C2F002363E1 /* AppDelegate.m in Sources */,
+				E92E4AB119204C2F002363E1 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E92E4ABE19204C2F002363E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E92E4ACF19204C2F002363E1 /* iOSAppImageResourceCleanerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E92E4AC719204C2F002363E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E92E4AA019204C2F002363E1 /* iOSAppImageResourceCleaner */;
+			targetProxy = E92E4AC619204C2F002363E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E92E4AAD19204C2F002363E1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E92E4AAE19204C2F002363E1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E92E4AB319204C2F002363E1 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E92E4AB419204C2F002363E1 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		E92E4AB919204C2F002363E1 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E92E4ABA19204C2F002363E1 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		E92E4ACB19204C2F002363E1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E92E4ACC19204C2F002363E1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E92E4AD019204C2F002363E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		E92E4AD119204C2F002363E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		E92E4AD319204C2F002363E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSAppImageResourceCleaner/iOSAppImageResourceCleaner-Prefix.pch";
+				INFOPLIST_FILE = "iOSAppImageResourceCleaner/iOSAppImageResourceCleaner-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E92E4AD419204C2F002363E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSAppImageResourceCleaner/iOSAppImageResourceCleaner-Prefix.pch";
+				INFOPLIST_FILE = "iOSAppImageResourceCleaner/iOSAppImageResourceCleaner-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E92E4AD619204C2F002363E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOSAppImageResourceCleaner.app/Contents/MacOS/iOSAppImageResourceCleaner";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSAppImageResourceCleaner/iOSAppImageResourceCleaner-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "iOSAppImageResourceCleanerTests/iOSAppImageResourceCleanerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		E92E4AD719204C2F002363E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOSAppImageResourceCleaner.app/Contents/MacOS/iOSAppImageResourceCleaner";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSAppImageResourceCleaner/iOSAppImageResourceCleaner-Prefix.pch";
+				INFOPLIST_FILE = "iOSAppImageResourceCleanerTests/iOSAppImageResourceCleanerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E92E4A9C19204C2F002363E1 /* Build configuration list for PBXProject "iOSAppImageResourceCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E92E4AD019204C2F002363E1 /* Debug */,
+				E92E4AD119204C2F002363E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E92E4AD219204C2F002363E1 /* Build configuration list for PBXNativeTarget "iOSAppImageResourceCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E92E4AD319204C2F002363E1 /* Debug */,
+				E92E4AD419204C2F002363E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E92E4AD519204C2F002363E1 /* Build configuration list for PBXNativeTarget "iOSAppImageResourceCleanerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E92E4AD619204C2F002363E1 /* Debug */,
+				E92E4AD719204C2F002363E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E92E4A9919204C2F002363E1 /* Project object */;
+}
