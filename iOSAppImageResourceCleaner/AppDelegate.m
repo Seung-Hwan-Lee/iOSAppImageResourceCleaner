@@ -7,28 +7,31 @@
 //
 
 #import "AppDelegate.h"
-#import "PNGImageResourceInfo.h"
+#import "PNGFilesArranger.h"
+#import "PNGResourcesArranger.h"
 
 
 
-static const NSUInteger kThreadCount    = 4;
 
 
 
-@interface AppDelegate ()
+@interface AppDelegate () <PNGResourcesArrangerDelegate>
 
-@property (weak) IBOutlet NSTextField *sourceRootPath;
-@property (weak) IBOutlet NSTextField *imageResourcePath;
+@property (weak) IBOutlet       NSTextField             *sourceRootPath;
+@property (weak) IBOutlet       NSTextField             *imageResourcePath;
+@property (weak) IBOutlet       NSTextField             *refImageFilesPath;
+@property (weak) IBOutlet       NSTextField             *progressCountTextField;
 
-@property (nonatomic, strong)   NSMutableDictionary     *pngImageFilesDic;
+@property (weak) IBOutlet       NSProgressIndicator     *progressIndicator;
+@property (weak) IBOutlet       NSButton                *okButton;
 
-@property (nonatomic, strong)   NSMutableDictionary     *x1OnlyFiles;
-@property (nonatomic, strong)   NSMutableDictionary     *x2OnlyFiles;
-@property (nonatomic, strong)   NSMutableDictionary     *allFiles;
 
-@property (nonatomic, strong)   NSMutableArray          *threadList;
+@property (nonatomic, strong)   NSString                *searchResultDirectory;
+@property (nonatomic, strong)   NSString                *arrangeReportDirectory;
 
-@property (nonatomic, strong)   NSMutableDictionary     *nouseImageFilesDic;
+
+@property (nonatomic, strong)   PNGFilesArranger        *reservedImagesArranger;
+@property (nonatomic, strong)   PNGResourcesArranger    *pngResourcesArranger;
 
 @end
 
@@ -38,274 +41,234 @@ static const NSUInteger kThreadCount    = 4;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    _pngImageFilesDic = [NSMutableDictionary dictionary];
+    
+    
+    /// user / thomas / iOSCleaner / searchResult
+    /// user / thomas / iOSCleaner / arrangeReport
+    
+    
+    /// remove directory iOSCleaner
+    NSString *appDataDirectory = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), [self applicationName]];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    
+    
+    NSLog(@"app data directory : %@", appDataDirectory);
+    
+    
+    if (![fileManager removeItemAtPath:appDataDirectory error:&error])
+    {
+        NSAssert((error.code == NSFileNoSuchFileError), @"failed remove directory - %@\n%@", appDataDirectory, error);
+    }
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self makeAppDataDirectory:appDataDirectory];
+    });
 
-    _x1OnlyFiles      = [NSMutableDictionary dictionary];
-    _x2OnlyFiles      = [NSMutableDictionary dictionary];
-    _allFiles         = [NSMutableDictionary dictionary];
-    
-    _threadList       = [NSMutableArray array];
-    
-    _nouseImageFilesDic = [NSMutableDictionary dictionary];
     
     
+    [self prepareDefaultInputValues];
+}
+
+
+#pragma mark - Prepare Methods
+
+
+/**
+ input text field에 기본값 입력.
+ */
+- (void)prepareDefaultInputValues
+{
     [_sourceRootPath setStringValue:@"/Users/thomas/work/91.src/shcmobile"];
     [_imageResourcePath setStringValue:@"/Users/thomas/work/91.src/shcmobile/_Resource"];
+    [_refImageFilesPath setStringValue:@"/Users/thomas/work/82.GUI/backup"];
+}
+
+
+#pragma mark - Action Methods
+- (IBAction)checkReferenceImageFiles:(id)sender
+{
+    [self resetInstanceVariables];
+    
+    
+    [self arrangeReservedPNGImages];
+    
+    
+    NSString *filePath = [NSString stringWithFormat:@"%@/ReservedPNGFilesReport.csv", _arrangeReportDirectory];
+    [_reservedImagesArranger makePNGArrangeReport:filePath];
+}
+
+
+- (IBAction)checkResourceImageFiles:(id)sender
+{
+    [self resetInstanceVariables];
+    
+    
+    [self arrangePNGImageResources];
+    
+    
+    NSString *filePath = [NSString stringWithFormat:@"%@/ResourcePNGFilesReport.csv", _arrangeReportDirectory];
+    [_pngResourcesArranger makePNGArrangeReport:filePath];
 }
 
 
 - (IBAction)onGoButton:(id)sender
 {
+    [self resetInstanceVariables];
+
+    
     NSLog(@"source path : %@", [_sourceRootPath stringValue]);
-    NSLog(@"image path : %@", [_imageResourcePath stringValue]);
+    NSLog(@"image path  : %@", [_imageResourcePath stringValue]);
+    NSLog(@"ref path    : %@", [_refImageFilesPath stringValue]);
     
-    
-    [self listUpPNGImageResources:[_imageResourcePath stringValue]];
 
-    NSLog(@"image file count : %ld", [_pngImageFilesDic count]);
+    [self arrangeReservedPNGImages];
 
-    [self categorizePNGImageFileDictionary];
+
+    [self arrangePNGImageResources];
+
     
-    
-    [self checkWhetherPNGImageIsUsed];
+    [_pngResourcesArranger checkWhetherImageIsUsed:_reservedImagesArranger inSourceRootDirectory:[_sourceRootPath stringValue]];
 }
 
 
-- (void)listUpPNGImageResources:(NSString*)imageFilesDirectoryPath
+#pragma mark - Process Methods
+
+
+- (void)arrangeReservedPNGImages
 {
-    NSLog(@"%s invoked , %@", __func__, imageFilesDirectoryPath);
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    NSError *error = nil;
-    NSArray *directoryContents = [fileManager contentsOfDirectoryAtPath:imageFilesDirectoryPath error:&error];
-    if (nil == directoryContents)
-    {
-        NSLog(@"failed contentsOfDirectoryAtPath:error:\nimage file path : %@\nerror : %@", imageFilesDirectoryPath, error);
-        return ;
-    }
+    NSLog(@"reserved image path  : %@", [_refImageFilesPath stringValue]);
     
     
-    [directoryContents enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSString *fileName = obj;
-        NSString *filePath = [imageFilesDirectoryPath stringByAppendingPathComponent:fileName];
-        
-        
-        NSError *error = nil;
-        NSDictionary *fileAttributeDic = [fileManager attributesOfItemAtPath:filePath error:&error];
-        if (nil == fileAttributeDic)
+    
+    self.reservedImagesArranger = [[PNGFilesArranger alloc] init];
+    [_reservedImagesArranger listupPNGFiles:[_refImageFilesPath stringValue]];
+    
+    
+    NSLog(@"reserved image count : %ld", [_reservedImagesArranger.pngFilesDic count]);
+}
+
+
+- (void)arrangePNGImageResources
+{
+    NSLog(@"resource image path  : %@", [_imageResourcePath stringValue]);
+    
+    
+    self.pngResourcesArranger = [[PNGResourcesArranger alloc] initWithDelegate:self
+                                                     searchResultSaveDirectory:_searchResultDirectory
+                                                           reportSaveDirectory:_arrangeReportDirectory];
+    [_pngResourcesArranger listupPNGFiles:[_imageResourcePath stringValue]];
+    
+    
+    NSLog(@"resource image count : %ld", [_pngResourcesArranger.pngFilesDic count]);
+}
+
+
+#pragma mark - Reset Methods
+
+
+/**
+ 인스턴스 변수 reset.
+ */
+- (void)resetInstanceVariables
+{
+}
+
+
+#pragma mark - PNGResourcesArrangerDelegate Methods
+
+
+- (void)PNGResourcesArrangerDidSearchPNGImage:(NSUInteger)currentProcessCount totalPNGImageCount:(NSUInteger)totalCount
+{
+    [self showSearchProcess:currentProcessCount totalPNGImageCount:totalCount];
+}
+
+
+- (void)PNGResourcesArrangerDidStartSearch
+{
+    [self setControlEnabled:NO];
+}
+
+
+- (void)PNGResourcesArrangerDidEndSearch
+{
+    [self setControlEnabled:YES];
+}
+
+
+#pragma mark - UI Methods
+
+
+- (void)showSearchProcess:(NSUInteger)processedFileNum totalPNGImageCount:(NSUInteger)totalCount
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *string = [NSString stringWithFormat:@"%lu / %lu", processedFileNum, totalCount];
+        [_progressCountTextField setStringValue:string];
+    });
+}
+
+
+- (void)setControlEnabled:(BOOL)enabled
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (enabled)
         {
-            NSLog(@"failed attributesOfItemAtPath:error:\nimage file path : %@\nerror : %@", filePath, error);
-            return ;
+            [_progressIndicator stopAnimation:nil];
+        }
+        else
+        {
+            [_progressIndicator startAnimation:nil];
         }
         
-        
-        NSString *fileType = fileAttributeDic[NSFileType];
-        if ([fileType isEqualToString:NSFileTypeRegular])
-        {
-            NSString *fileExtension = [[fileName pathExtension] lowercaseString];
-            if ([fileExtension isEqualToString:@"png"])
-            {
-                fileName = [fileName substringToIndex:[fileName length] - 4];
-                
-                BOOL is2xFile = NO;
-                NSString *fileNameTail = nil;
-                
-                if ([fileName length] > 3)
-                {
-                    fileNameTail = [[fileName substringFromIndex:[fileName length] - 3] lowercaseString];
-                }
-                
-                if ([fileNameTail isEqualToString:@"@2x"])
-                {
-                    fileName = [fileName substringToIndex:[fileName length] - 3];
-                    is2xFile = YES;
-                }
+        [_okButton setEnabled:enabled];
+    });
+}
 
-                [self savePNGImageFileInfo:fileName filePath:filePath is2xFile:is2xFile];
+
+#pragma mark - Utility Methods
+
+
+- (void)makeAppDataDirectory:(NSString*)appDataDirectory
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+
+    
+    /// create directory searchResult
+    {
+        self.searchResultDirectory = [NSString stringWithFormat:@"%@/searchResult", appDataDirectory];
+        if (![fileManager createDirectoryAtPath:_searchResultDirectory withIntermediateDirectories:YES attributes:nil error:&error])
+        {
+            if (error.code != NSFileWriteFileExistsError)
+            {
+                NSAssert(NO, @"failed create directory - %@\n%@", _searchResultDirectory, error);
             }
         }
-        else if ([fileType isEqualToString:NSFileTypeDirectory])
+    }
+    
+    
+    /// create directory arrangeReport
+    {
+        self.arrangeReportDirectory = [NSString stringWithFormat:@"%@/arrangeReport", appDataDirectory];
+        if (![fileManager createDirectoryAtPath:_arrangeReportDirectory withIntermediateDirectories:YES attributes:nil error:&error])
         {
-            [self listUpPNGImageResources:filePath];
-        }
-//        NSLog(@"%@", fileAttributeDic);
-    }];
-    
-//    NSLog(@"%@", directoryContents);
-    
-}
-
-
-- (void)savePNGImageFileInfo:(NSString*)fileName filePath:(NSString*)filePath is2xFile:(BOOL)is2xFile
-{
-    PNGImageResourceInfo *imageInfo = _pngImageFilesDic[fileName];
-    if (nil == imageInfo)
-    {
-        imageInfo = [[PNGImageResourceInfo alloc] init];
-        _pngImageFilesDic[fileName] = imageInfo;
-    }
-
-    
-    if (is2xFile)
-    {
-        imageInfo.x2FilePath = filePath;
-    }
-    else
-    {
-        imageInfo.x1FilePath = filePath;
-    }
-}
-
-
-- (void)categorizePNGImageFileDictionary
-{
-    [_pngImageFilesDic enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSString *imageFileName         = key;
-        PNGImageResourceInfo *imageInfo = obj;
-        
-        FileExistType fileExistType = [imageInfo fileExistType];
-        switch (fileExistType) {
-            case X1ImageOnlyExist:
-                _x1OnlyFiles[imageFileName] = imageInfo;
-                break;
-                
-            case X2ImageOnlyExist:
-                _x2OnlyFiles[imageFileName] = imageInfo;
-                break;
-                
-            case AllImageExist:
-                _allFiles[imageFileName] = imageInfo;
-                break;
-                
-            default:
-                NSAssert(NO, @"");
-                break;
-        }
-    }];
-    
-    
-    //    NSLog(@"** 1x only files **\n%@", [_x1OnlyFiles allKeys]);
-    //
-    //
-    //    NSLog(@"** 2x only files **\n%@", [_x2OnlyFiles allKeys]);
-    //
-    //
-    //    NSLog(@"** all files **\n%@", [_allFiles allKeys]);
-}
-
-
-- (void)checkWhetherPNGImageIsUsed
-{
-    for (NSUInteger i = 0 ; i < kThreadCount ; i++)
-    {
-        NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(performSearchPNGImageFileInSourceFiles:) object:@(i)];
-        [thread start];
-        [_threadList addObject:thread];
-    }
-    
-//    [_pngImageFilesDic enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-//        NSString *imageFileName         = key;
-//        
-//        [self searchPNGImageFileInSourceFiles:imageFileName];
-//    }];
-}
-
-
-- (void)performSearchPNGImageFileInSourceFiles:(NSNumber*)threadIdx
-{
-    NSInteger threadIndex = [threadIdx integerValue];
-    
-    NSLog(@"%s invoked , thread index : %ld", __func__, threadIndex);
-
-    NSArray *allPNGImageNameList = [_pngImageFilesDic allKeys];
-    NSUInteger fileCount = [allPNGImageNameList count];
-    for (NSUInteger i = 0 ; i < fileCount ; i++)
-    {
-        if (threadIndex == i % kThreadCount)
-        {
-            [self searchPNGImageFileInSourceFiles:allPNGImageNameList[i]];
+            if (error.code != NSFileWriteFileExistsError)
+            {
+                NSAssert(NO, @"failed create directory - %@\n%@", _arrangeReportDirectory, error);
+            }
         }
     }
 }
 
 
-//- (void)searchPNGImageFileInSourceFiles:(NSNumber*)threadIdx
-- (void)searchPNGImageFileInSourceFiles:(NSString*)imageFileName
+- (NSString*)applicationName
 {
-    NSString *outputFilePath = [self prepareOutputFile];
-    NSFileHandle *outputFileHandle = [NSFileHandle fileHandleForWritingAtPath:outputFilePath];
-    [outputFileHandle truncateFileAtOffset:0];
-
+    NSBundle *bundle          = [NSBundle mainBundle];
+    NSDictionary *info        = [bundle infoDictionary];
+    NSString *applicationName = [info objectForKey:@"CFBundleName"];
     
-    
-    NSTask *task = [[NSTask alloc] init];
-    
-    
-    [task setLaunchPath:@"/usr/bin/grep"];
-    [task setCurrentDirectoryPath:[_sourceRootPath stringValue]];
-    [task setArguments:@[@"-rn", imageFileName, [_sourceRootPath stringValue]]];
-    
-
-    [task setStandardOutput:outputFileHandle];
-    
-    
-    // Run the task
-    [task launch];
-    [task waitUntilExit];
-    
-    
-    [outputFileHandle closeFile];
-
-    
-    NSTaskTerminationReason terminationReason = [task terminationReason];
-    NSAssert(terminationReason == NSTaskTerminationReasonExit, @"terminationReason != NSTaskTerminationReasonExit");
-    
-    
-    NSError *error = nil;
-    NSString *searchResult = [NSString stringWithContentsOfFile:outputFilePath encoding:NSUTF8StringEncoding error:&error];
-    NSAssert(searchResult != nil, @"failed to load output file\n%@", error);
-    
-    
-    @synchronized(self)
-    {
-        printf("** %s **\n%s\n\n\n", [imageFileName UTF8String], [searchResult UTF8String]);
-        
-        if (![searchResult length])
-        {
-            _nouseImageFilesDic[imageFileName] = _pngImageFilesDic[imageFileName];
-        }
-    }
-    
-    
-    [self deleteOutputFile:outputFilePath];
-}
-
-
-- (NSString*)prepareOutputFile
-{
-    NSString *outputFilePath = [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), [[NSUUID UUID] UUIDString]];
-    
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL result = [fileManager createFileAtPath:outputFilePath contents:nil attributes:nil];
-    
-    
-    NSAssert(result, @"%s failed to create file - %@", __func__, outputFilePath);
-    
-    
-    return outputFilePath;
-}
-
-
-- (void)deleteOutputFile:(NSString*)outputFilePath
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error = nil;
-
-    BOOL result = [fileManager removeItemAtPath:outputFilePath error:&error];
-
-    NSAssert(result, @"%s failed to remove file - %@\n%@", __func__, outputFilePath, error);
+    return applicationName;
 }
 
 

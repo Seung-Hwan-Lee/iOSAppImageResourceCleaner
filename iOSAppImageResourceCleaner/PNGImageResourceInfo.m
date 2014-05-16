@@ -59,4 +59,33 @@
 }
 
 
+- (NSString*)fileExistTypeString
+{
+    FileExistType type = [self fileExistType];
+    switch (type) {
+        case X1ImageOnlyExist:
+            return @"x1 only";
+            break;
+            
+        case X2ImageOnlyExist:
+            return @"x2 only";
+            break;
+            
+        case AllImageExist:
+            return @"all exist";
+            break;
+            
+        case FileExistTypeFault:
+            return @"fault";
+            break;
+            
+        default:
+            return @"fault";
+            break;
+    }
+    
+    return @"fault";
+}
+
+
 @end

@@ -20,8 +20,13 @@ typedef NS_ENUM(NSUInteger, FileExistType)
 
 @property (nonatomic, strong)   NSString    *x1FilePath;
 @property (nonatomic, strong)   NSString    *x2FilePath;
+@property (nonatomic, assign)   NSUInteger  usedCount;      /// source에서 해당 이미지가 사용된 횟수.
+@property (nonatomic, assign)   BOOL        reservedImage;
 
 - (FileExistType)fileExistType;
 
+- (NSString*)fileExistTypeString;
 
 @end
+
+
